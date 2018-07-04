@@ -1,0 +1,298 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="LibreOffice 4.1.6.2 (Linux)">
+	<META NAME="AUTHOR" CONTENT="Shruti Rathi">
+	<META NAME="CREATED" CONTENT="20180704;82100000000000">
+	<META NAME="CHANGEDBY" CONTENT="Shruti Rathi">
+	<META NAME="CHANGED" CONTENT="20180704;82100000000000">
+	<META NAME="AppVersion" CONTENT="16.0000">
+	<META NAME="DocSecurity" CONTENT="0">
+	<META NAME="HyperlinksChanged" CONTENT="false">
+	<META NAME="LinksUpToDate" CONTENT="false">
+	<META NAME="ScaleCrop" CONTENT="false">
+	<META NAME="ShareDoc" CONTENT="false">
+	<STYLE TYPE="text/css">
+	<!--
+		@page { size: 8.5in 11in; margin: 1in }
+		P { margin-bottom: 0.08in; direction: ltr; widows: 2; orphans: 2 }
+		A:link { color: #0000ff; so-language: zxx }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" LINK="#0000ff" DIR="LTR">
+<P ALIGN=CENTER STYLE="margin-bottom: 0.14in"><U><B>SUBWAY DATA
+ANALYSIS</B></U></P>
+<P STYLE="margin-bottom: 0.14in">The NYC public transportation system
+– Metro Transit Authority- provides data for download via csv
+files. Part of information available are data from the subway
+turnstiles, containing weekly logs for cumulative entries and exits
+by turnstile and by subway station provided during a timeframe.</P>
+<P STYLE="margin-bottom: 0.14in">GOAL OF THIS PROJECT: is to explore
+the relationship between data from NYC subway turnstiles and the city
+weather.</P>
+<P STYLE="margin-bottom: 0.14in">REQUIREMENT: data from the subway
+and data from the weather in NYC.</P>
+<P STYLE="margin-bottom: 0.14in">LINK used for getting information:
+<A HREF="http://web.mta.info/developers/turnstile.html">http://web.mta.info/developers/turnstile.html</A></P>
+<P STYLE="margin-bottom: 0.14in">Analysis of the above gathered
+information:</P>
+<P STYLE="margin-left: 0.5in; margin-bottom: 0.14in"><B>Learned
+methods</B>:</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0.14in"> Basics of BigData 
+	</P>
+	<LI><P STYLE="margin-bottom: 0.14in">HDFS and MapReduce – Hadoop
+	Distributed File System and MapReduce</P>
+	<LI><P STYLE="margin-bottom: 0.14in">MapReduce Design Patterns---1.
+	Filtering Patterns</P>
+</UL>
+<P STYLE="margin-left: 0.5in; margin-bottom: 0.14in">                
+                                       2. Summarization
+Patterns—Numerical Summarization 
+</P>
+<P STYLE="margin-left: 0.5in; margin-bottom: 0.14in">                
+                                       3.Structural Patterns</P>
+<UL>
+	<LI><P STYLE="margin-bottom: 0.14in">Deploying Hadoop on Amazon 
+	</P>
+</UL>
+<OL>
+	<LI><P STYLE="margin-bottom: 0.14in">Nodes- NameNode</P>
+	<LI><P STYLE="margin-bottom: 0.14in">DataNode</P>
+	<LI><P STYLE="margin-bottom: 0.14in">On demand Hadoop Clusters</P>
+</OL>
+<P STYLE="margin-bottom: 0.14in"><B>BigData</B>- Data that is too big
+to be processed by a single machine.</P>
+<P STYLE="margin-bottom: 0.14in">Data is increasing by the time,
+numerous organizations generate several bytes of data.</P>
+<P STYLE="margin-bottom: 0.14in">The following data-time graph shows
+the rate of increase of data production,</P>
+<P STYLE="margin-bottom: 0.14in"><IMG SRC="SUBWAY_DATA_ANALYSIS_html_91ec62b2.png" NAME="Picture 1" ALIGN=BOTTOM WIDTH=396 HEIGHT=262 BORDER=0></P>
+<P STYLE="margin-bottom: 0.14in">Source of the graph:
+<A HREF="https://www.researchgate.net/figure/Computational-time-vs-Data-graph-for-range-query_fig2_277262930">https://www.researchgate.net/figure/Computational-time-vs-Data-graph-for-range-query_fig2_277262930</A></P>
+<P STYLE="margin-bottom: 0.14in">How can we explain BigData?</P>
+<P STYLE="margin-bottom: 0.14in">3V’s define the data size, namely
+<B>Volume, Variety, and Velocity</B></P>
+<P STYLE="margin-bottom: 0.14in"><B>Volume</B>: Refers to the size of
+the data we are dealing with.</P>
+<P STYLE="margin-bottom: 0.14in"><B>Variety:</B> Refers to the fact
+of the data that it is coming from different sources in different
+formats.</P>
+<P STYLE="margin-bottom: 0.14in"><B>Velocity</B>: Refers to the speed
+at which it is generated, speed required to be made available for its
+processing.</P>
+<P STYLE="margin-bottom: 0.14in">This much amount of data is needed
+to be stored somewhere, this can be easily stored at <B>SAN</B>
+(Storage Area Networks), it assures the reliability of data stored
+but processing and accessing the data from SAN is difficult.</P>
+<P STYLE="margin-bottom: 0.14in">Hence, some amount of data is needed
+to be discarded. But none of the data can be treated as useless to be
+discarded hence, some another storing platform is needed to look
+upon.</P>
+<P STYLE="margin-bottom: 0.14in">Hadoop stores the data in
+distributed format.</P>
+<P STYLE="margin-bottom: 0.14in"><B>HDFS: </B> Hadoop Distributed
+File System, each file is divided into smaller chunks called blocks
+by default of 64 MB. Each one block goes to cluster.</P>
+<P STYLE="margin-bottom: 0.14in">Each cluster have data node and name
+node. Data node stores the data and some redundant data to recover in
+case of data node failure. 
+</P>
+<P STYLE="margin-bottom: 0.14in"><B>MapReduce </B>is used to process
+the stored-on Hadoop cluster.</P>
+<P STYLE="margin-bottom: 0.14in">Efficient processing of data is done
+by mapper and reducer two different groups.</P>
+<P STYLE="margin-bottom: 0.14in">In between mapper and reducer
+shuffle and sort takes place, sorting refers to the fact that reducer
+organizes the records in a sorted way and writes the final results.</P>
+<P STYLE="margin-bottom: 0.14in">There can be more than one reducer,
+each reducer can have any number of keys.</P>
+<P STYLE="margin-bottom: 0.14in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.14in">The data included in the project is
+containing the entry and exit records of June month of nyc subway
+turnstile. It is obvious that the data is too large, this data can be
+considered as big data.</P>
+<P STYLE="margin-bottom: 0.14in"><B>Files included in the project
+are:</B></P>
+<OL>
+	<LI><P STYLE="margin-bottom: 0.14in">turnstile_data_master_with_weather
+	(3).csv</P>
+	<LI><P STYLE="margin-bottom: 0.14in">files downloaded from the link
+	: <A HREF="http://web.mta.info/developers/turnstile.html">http://web.mta.info/developers/turnstile.html</A></P>
+	<LI><P STYLE="margin-bottom: 0.14in">june2017.txt  this file shows
+	the records of June collectively, result of a exercise in ipynb
+	file.</P>
+	<LI><P STYLE="margin-bottom: 0.14in">Files downloaded from the link
+	mention in 2<SUP>nd</SUP> statement are of 3<SUP>rd</SUP> ,
+	10<SUP>th</SUP>,17<SUP>th</SUP>,24<SUP>th</SUP> June 2017.</P>
+</OL>
+<P STYLE="margin-left: 0.5in; margin-bottom: 0.14in">I have attached
+these files too with the other files named as per requirement.</P>
+<OL START=5>
+	<LI><P STYLE="margin-bottom: 0.14in">Output.txt file</P>
+	<LI><P STYLE="margin-bottom: 0.14in">mapper_result.txt</P>
+	<LI><P STYLE="margin-bottom: 0.14in">reducer_result.txt</P>
+</OL>
+<P STYLE="margin-bottom: 0.14in"><B>Answers to the ipynb file</B></P>
+<P STYLE="margin-bottom: 0.14in"><B>2.2  </B>It requires the coder to
+write a code to count the number of rainy days i.e. where the column
+rain is equal to one.</P>
+<P STYLE="margin-bottom: 0.14in">On writing the code and executing it
+in the ipynb file (jupyter notebook) , the number of rainy days are
+found to be equal to 10.</P>
+<P STYLE="margin-bottom: 0.14in">Here I am attaching the screenshot
+of the same for convenience.</P>
+<P STYLE="margin-bottom: 0.14in"><IMG SRC="SUBWAY_DATA_ANALYSIS_html_e5c1f48c.png" NAME="Picture 2" ALIGN=BOTTOM WIDTH=624 HEIGHT=362 BORDER=0></P>
+<P STYLE="margin-bottom: 0.14in"><B>2.3 </B>It requires the coder to
+write a code to calculate the maximum temperature for the fog (cloudy
+days). On writing and executing the code the maximum temperature on
+cloudy day is found to be 81.0 and on non-cloudy day i.e. when cloud
+is 0 the temp is 86.0.</P>
+<P STYLE="margin-bottom: 0.14in">Here I am attaching the screenshot
+of the same for convenience. 
+<IMG SRC="SUBWAY_DATA_ANALYSIS_html_dac99be8.png" NAME="Picture 3" ALIGN=BOTTOM WIDTH=614 HEIGHT=207 BORDER=0></P>
+<P STYLE="margin-bottom: 0.14in"><B>2.4</B> It requires the coder to
+write a code to find the mean of mean temp on the weekends i.e. of
+Saturdays or Sundays. On writing and executing the code the mean is
+found to be <FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt">65.10066685403307</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.14in">Here I am attaching the screenshot
+of the same for convenience.</P>
+<P STYLE="margin-bottom: 0.14in"><IMG SRC="SUBWAY_DATA_ANALYSIS_html_61e4ab47.png" NAME="Picture 4" ALIGN=BOTTOM WIDTH=624 HEIGHT=185 BORDER=0></P>
+<P STYLE="margin-bottom: 0.14in"><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt"><B>2.5
+ </B></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt">It
+requires the coder to code to find out </FONT></FONT><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN STYLE="background: #ffffff">the
+mean of the minimum temperature 'mintempi' for the days when the
+minimum temperature was greater than 55 degrees</SPAN></FONT></FONT><FONT COLOR="#000000"><FONT FACE="Helvetica, serif"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN STYLE="background: #ffffff">.
+</SPAN></FONT></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN STYLE="background: #ffffff">On
+writing the and executing the code the mean is found out to be 61.23</SPAN></FONT></FONT></P>
+<P STYLE="margin-bottom: 0.14in">Here I am attaching the screenshot
+of the same for convenience.</P>
+<P STYLE="margin-bottom: 0.14in"><IMG SRC="SUBWAY_DATA_ANALYSIS_html_f6a20a9f.png" NAME="Picture 5" ALIGN=BOTTOM WIDTH=624 HEIGHT=244 BORDER=0></P>
+<P STYLE="margin-bottom: 0.14in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.14in"><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt"><B>2.6
+ </B></FONT></FONT><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt">
+This question includes </FONT></FONT><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt"><B>the
+visualization part</B></FONT></FONT></P>
+<P STYLE="margin-bottom: 0.14in"><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt">1.
+plot depicting the relationship between two or more variables , Here
+the histogram is shown for the hourly entries on rainy and non-rainy
+day.</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.14in"><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt">The
+variables included are frequency and entries_hourly </FONT></FONT>
+</P>
+<P STYLE="margin-bottom: 0.14in"><FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt">Here
+I am attaching the picture of the same obtained histogram,</FONT></FONT></P>
+<P STYLE="margin-bottom: 0.14in"><IMG SRC="SUBWAY_DATA_ANALYSIS_html_f7ec4df0.png" NAME="Picture 6" ALIGN=BOTTOM WIDTH=477 HEIGHT=325 BORDER=0><FONT COLOR="#000000">
+</FONT>
+</P>
+<P STYLE="margin-bottom: 0.14in"><BR><BR>
+</P>
+<P STYLE="margin-left: 0.5in; margin-bottom: 0.14in">The X axis is
+showing hourly entries and Y axis is showing Frequency.</P>
+<P STYLE="margin-left: 0.5in; margin-bottom: 0.14in">The peach color
+indicates the days when it is not raining, and blue indicates when it
+is raining.</P>
+<P STYLE="margin-left: 0.5in; margin-bottom: 0.14in">By the above
+graph(histogram), it can be drawn that the quantities on the X axis
+isn’t normally distributed. It is a positively skewed distribution.</P>
+<P STYLE="margin-bottom: 0.14in"><B>2.7 </B>The answer is noted in
+the ipynb file.</P>
+<P STYLE="margin-bottom: 0.14in"><B>2.8 </B>This question includes
+the <B>analysis part</B> i.e. the 3<SUP>rd</SUP> part of the rubrics
+,</P>
+<P STYLE="margin-top: 0.19in; margin-bottom: 0.19in; background: #ffffff; line-height: 100%">
+<FONT FACE="Times New Roman, serif"><FONT SIZE=3>It requires the
+coder to code a function <FONT COLOR="#000000"><FONT FACE="Helvetica, serif"><FONT SIZE=2 STYLE="font-size: 10pt">that
+returns:</FONT></FONT></FONT></FONT></FONT></P>
+<OL>
+	<LI><P STYLE="margin-top: 0.19in; margin-bottom: 0.19in; background: #ffffff; line-height: 100%">
+	<FONT COLOR="#000000"><FONT FACE="Helvetica, serif"><FONT SIZE=2 STYLE="font-size: 10pt">The
+	mean of entries when it's raining</FONT></FONT></FONT></P>
+	<LI><P STYLE="margin-top: 0.19in; margin-bottom: 0.19in; background: #ffffff; line-height: 100%">
+	<FONT COLOR="#000000"><FONT FACE="Helvetica, serif"><FONT SIZE=2 STYLE="font-size: 10pt">The
+	mean of entries when it's not raining</FONT></FONT></FONT></P>
+</OL>
+<P STYLE="margin-top: 0.19in; margin-bottom: 0.19in; background: #ffffff; line-height: 100%">
+<FONT COLOR="#000000"><FONT FACE="Helvetica, serif"><FONT SIZE=2 STYLE="font-size: 10pt">The
+mean of entries on rainy day is found to be : 1105.45 </FONT></FONT></FONT>
+</P>
+<P STYLE="margin-top: 0.19in; margin-bottom: 0.19in; background: #ffffff; line-height: 100%">
+<FONT COLOR="#000000"><FONT FACE="Helvetica, serif"><FONT SIZE=2 STYLE="font-size: 10pt">And
+the mean of entries on non-rainy day is found to be: 1090.28</FONT></FONT></FONT></P>
+<P STYLE="margin-top: 0.19in; margin-bottom: 0.19in; background: #ffffff; line-height: 100%">
+<FONT COLOR="#000000"><FONT FACE="Helvetica, serif"><FONT SIZE=2 STYLE="font-size: 10pt">Here
+I am attaching the picture of the same for convenience</FONT></FONT></FONT></P>
+<P STYLE="margin-top: 0.19in; margin-bottom: 0.19in; background: #ffffff; line-height: 100%">
+<IMG SRC="SUBWAY_DATA_ANALYSIS_html_b1b32621.png" NAME="Picture 7" ALIGN=BOTTOM WIDTH=568 HEIGHT=352 BORDER=0></P>
+<P STYLE="margin-bottom: 0.14in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.14in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.14in">  <B>Conclusion </B>drawn from the
+mean: The avg no. entries on rainy day is more than that of non-rainy
+day. 
+</P>
+<P STYLE="margin-bottom: 0.14in"><FONT SIZE=4 STYLE="font-size: 16pt"><U><B>Linear
+Regression</B></U></FONT></P>
+<P STYLE="margin-bottom: 0.14in">I have used the gradient descent
+algorithm is used. I have used the default values i.e. alpha = 0.5
+and 75 iterations. Features used includes rain or no rain,
+precipitation, mean wind speed, hour, weekday and mean temperature.
+The dummy variable called UNIT is introduced.</P>
+<P STYLE="margin-bottom: 0.14in">These features are used because
+continuous variables in this type of data set provide more
+information.</P>
+<P STYLE="margin-bottom: 0.14in">Weekday influence more the ridership
+rather than fog or rain.</P>
+<P STYLE="margin-bottom: 0.14in">The R^2 value drawn from the
+regression model is essentially a quantitative measure of goodness of
+fit and the percentage of variance. R^2 value is found to be nearly
+equal to 0.56.</P>
+<P STYLE="margin-bottom: 0.14in"><FONT SIZE=4 STYLE="font-size: 16pt"><U><B>Results
+drawn from the above test:</B></U></FONT></P>
+<P STYLE="margin-bottom: 0.14in">Differences were observed in the
+ridership between the rainy days (mean entry: 1105.45) and non-rainy
+days(mean entry: 1090.28).</P>
+<P STYLE="margin-bottom: 0.14in">The p- value obtained is 0.025.</P>
+<P STYLE="margin-bottom: 0.14in">Hence, a conclusion can be drawn
+that ridership is different on rainy or non-rainy day with 95%
+confidence that null hypothesis is false.</P>
+<P STYLE="margin-bottom: 0.14in">More people ride the subway when the
+weather outside is bad (or its raining).</P>
+<P STYLE="margin-bottom: 0.14in">The positive value of the
+coefficient indicates that the ridership increases as the rain
+increases.</P>
+<P STYLE="margin-bottom: 0.14in">The effect of rain or no rain is
+significantly small in comparison to the weekday and the weekend
+days.</P>
+<P STYLE="margin-bottom: 0.14in"><B>3.1 </B>The question is to write
+a mapper code <FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN STYLE="background: #ffffff">For
+each entry line, the mapper exit must PRINT (not return) UNIT as a
+key, and the number of ENTRIESn_hourly as the value. Separate the key
+and the value with a tab. For example: 'R002 \ t105105.0'</SPAN></FONT></FONT></P>
+<P STYLE="margin-bottom: 0.14in">This question utilizes the knowledge
+acquired in the MapReduce section of the course.</P>
+<P STYLE="margin-bottom: 0.14in">The output file for this question is
+labeled as mapper_result.txt and it is attached along with the other
+files too.</P>
+<P STYLE="margin-bottom: 0.14in"><B>3.2 </B>The question is to write
+a reduer code <FONT COLOR="#000000"><FONT SIZE=2 STYLE="font-size: 10pt"><SPAN STYLE="background: #ffffff">,Given
+the mapper result from the previous exercise, the reducer must print
+(not return) one line per UNIT, with the total number of
+ENTRIESn_hourly during May (which is our data duration), separated by
+a tab. An example of exit line from the reducer may look like this:
+'R001 \ t500625.0</SPAN></FONT></FONT></P>
+<P STYLE="margin-bottom: 0.14in"><A NAME="_GoBack"></A>The output
+file for this question is labeled as reducer_result.txt and it is
+attached along with the other files too.</P>
+<P STYLE="margin-bottom: 0.14in"><BR><BR>
+</P>
+<P STYLE="margin-bottom: 0.14in"><BR><BR>
+</P>
+</BODY>
+</HTML>
